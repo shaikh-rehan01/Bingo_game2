@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111827" />
+  <title>Bingo Duo — Multiplayer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark">B</div>
+      <div>
+        <h1>Bingo Duo</h1>
+        <p>Two players · One game · Real-time</p>
+      </div>
+      <span id="connection" class="connection offline">Offline</span>
+    </header>
+
+    <section id="setupScreen" class="panel">
+      <div class="eyebrow">PLAY WITH A FRIEND</div>
+      <h2>Ready for a game?</h2>
+      <p class="muted">Create a room and share its code, or join your brother's room.</p>
+      <label class="field-label" for="playerName">Your name</label>
+      <input id="playerName" maxlength="18" placeholder="Enter your name" autocomplete="nickname" />
+      <div class="action-grid">
+        <button id="createRoom" class="primary">Create room</button>
+        <div class="join-row">
+          <input id="roomCodeInput" maxlength="8" placeholder="ROOM CODE" />
+          <button id="joinRoom" class="secondary">Join</button>
+        </div>
+      </div>
+      <p id="setupMessage" class="message" aria-live="polite"></p>
+      <div class="howto">
+        <strong>How it works</strong>
+        <ol>
+          <li>Two players join the same room.</li>
+          <li>Both manually fill their own 1–25 grid.</li>
+          <li>Take turns selecting unused numbers.</li>
+          <li>Claim BINGO after completing a row, column, or diagonal.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="hidden">
+      <div class="room-bar panel compact">
+        <div><span class="muted tiny">ROOM CODE</span><strong id="roomCodeDisplay">--------</strong></div>
+        <button id="copyRoomCode" class="ghost">Copy code</button>
+        <button id="leaveRoom" class="ghost danger-text">Leave</button>
+      </div>
+
+      <div class="players panel compact">
+        <div class="player-card" id="playerCard0">
+          <span class="player-dot"></span><div><strong id="playerName0">Player 1</strong><small id="playerStatus0">Waiting</small></div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="player-card" id="playerCard1">
+          <span class="player-dot"></span><div><strong id="playerName1">Player 2</strong><small id="playerStatus1">Waiting</small></div>
+        </div>
+      </div>
+
+      <div class="turn-banner panel">
+        <div>
+          <span class="eyebrow">CURRENT TURN</span>
+          <h2 id="turnText">Waiting for players…</h2>
+          <p id="gameStatus" class="muted">Both players must join and get ready.</p>
+        </div>
+        <div class="turn-icon">↗</div>
+      </div>
+
+      <section class="panel board-panel">
+        <div class="section-heading">
+          <div><span class="eyebrow">YOUR BOARD</span><h2 id="boardTitle">Fill your numbers</h2></div>
+          <span id="boardHint" class="muted tiny">Use 1–25 once each</span>
+        </div>
+        <div id="board" class="board" aria-label="Your 5 by 5 Bingo board"></div>
+        <div id="editControls" class="edit-controls">
+          <button id="readyButton" class="primary" disabled>I'm ready</button>
+        </div>
+        <p id="boardMessage" class="message" aria-live="polite"></p>
+      </section>
+
+      <section class="panel call-panel">
+        <div class="section-heading">
+          <div><span class="eyebrow">NUMBER CALL</span><h2>Choose a number</h2></div>
+          <span id="pickedCount" class="count-pill">0 / 25 called</span>
+        </div>
+        <p id="callHelp" class="muted">Your turn: choose one number below.</p>
+        <div id="numberPicker" class="number-picker"></div>
+        <button id="bingoButton" class="bingo-button" disabled> BINGO! </button>
+        <p id="claimMessage" class="message" aria-live="polite"></p>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="section-heading"><div><span class="eyebrow">GAME ACTIVITY</span><h2>Called numbers</h2></div></div>
+        <div id="calledNumbers" class="called-numbers"><span class="muted">No numbers called yet.</span></div>
+      </section>
+    </section>
+    <footer>Made for two players · Rows, columns & both diagonals count</footer>
+  </main>
+
+  <div id="winnerModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="trophy">🏆</div>
+      <span class="eyebrow">GAME OVER</span>
+      <h2 id="winnerTitle">BINGO!</h2>
+      <p id="winnerDescription" class="muted"></p>
+      <button id="newGameButton" class="primary">Back to home</button>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
